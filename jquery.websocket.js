@@ -38,13 +38,19 @@
                     if (h) h.call(this, m);
                 });
             ws._send = ws.send;
+	    ws.sendLiteral = function (data) {		
+		return this._send(JSON.stringify(data));
+	    },
+	    ws.sendString  = function (data){
+		return this._send(data);
+	    },
             ws.send = function(type, data) {
                 var m			= {type: type};
                 m			= $.extend(true, m, $.extend(true, {}, settings.options, m));
                 if (data) {
 		    m['data']	= data;
 		}
-                return this._send($.toJSON(m));
+                return this._send(JSON.stringify(m));
             };
             $(window).unload(function(){ 
 				 ws.close(); 
