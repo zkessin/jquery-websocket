@@ -14,6 +14,12 @@ but no activity in the code since 2010.
     ws.send('hello');  // sending message is '{type:'hello'}'.
     ws.send('say', {name:'foo', text:'baa'});  // sending message is '{type:'say', data:{name:'foo', text:'baa'}}'
 
+## Sending a  string
+    ws.sendString( "string")
+	
+## Sending an Object as JSON
+    ws.sendLiteral({name: "value"})
+
 ## Event Handling
 
     var ws = $.websocket("ws://127.0.0.1:8080/", {
