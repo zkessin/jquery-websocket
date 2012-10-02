@@ -12,7 +12,9 @@
     $.extend({
         websocket: function(url, s) {
             var ws = WebSocket ? new WebSocket( url ) : {
-                send: function(m){ return false },
+                send: function(m){ 
+		    return false;
+		},
                 close: function(){}
             };
             var settings = {
@@ -38,8 +40,11 @@
                 m = $.extend(true, m, $.extend(true, {}, settings.options, m));
                 if (data) m['data'] = data;
                 return this._send($.toJSON(m));
-            }
-            $(window).unload(function(){ ws.close(); ws = null });
+            };
+            $(window).unload(function(){ 
+				 ws.close(); 
+				 ws = null ;
+			     });
             return ws;
         }
     });
