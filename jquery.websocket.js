@@ -9,7 +9,7 @@
  * Copyright (c) 2010 by shootaroo (Shotaro Tsubouchi).
  */
 (function($){
-     nullFunc = function() {
+     var nullFunc = function() {
      };
      
      $.extend({
@@ -48,7 +48,7 @@
                 var m			= {type: type};
                 m			= $.extend(true, m, $.extend(true, {}, settings.options, m));
                 if (data) {
-		    m['data']	= data;
+		    m.data	= data;
 		}
                 return this._send(JSON.stringify(m));
             };
