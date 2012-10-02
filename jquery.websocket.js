@@ -9,26 +9,29 @@
  * Copyright (c) 2010 by shootaroo (Shotaro Tsubouchi).
  */
 (function($){
-    $.extend({
+     nullFunc = function() {
+     };
+     
+     $.extend({
         websocket: function(url, s) {
             var ws = WebSocket ? new WebSocket( url ) : {
-                send: function(m){ 
+                send	: function(m){ 
 		    return false;
 		},
-                close: function(){}
+                close	: nullFunc
             };
             var settings = {
-                open: function(){},
-                close: function(){},
-                message: function(){},
-                options: {},
-                events: {}
+                open	: nullFunc,
+                close	: nullFunc,
+                message	: nullFunc,
+                options	: {},
+                events	: {}
             };
             $.extend(settings, $.websocketSettings, s);
             $(ws)
-                .bind('open', settings.open)
-                .bind('close', settings.close)
-                .bind('message', settings.message)
+                .bind('open',		settings.open)
+                .bind('close',		settings.close)
+                .bind('message',	settings.message)
                 .bind('message', function(e){
                     var m = $.evalJSON(e.originalEvent.data);
                     var h = settings.events[m.type];
@@ -36,9 +39,11 @@
                 });
             ws._send = ws.send;
             ws.send = function(type, data) {
-                var m = {type: type};
-                m = $.extend(true, m, $.extend(true, {}, settings.options, m));
-                if (data) m['data'] = data;
+                var m			= {type: type};
+                m			= $.extend(true, m, $.extend(true, {}, settings.options, m));
+                if (data) {
+		    m['data']	= data;
+		}
                 return this._send($.toJSON(m));
             };
             $(window).unload(function(){ 
